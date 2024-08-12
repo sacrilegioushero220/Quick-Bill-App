@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:quick_bill/widgets/custom_widgets.dart';
 
-class BusinessDetailScreen extends StatelessWidget {
-  const BusinessDetailScreen({super.key});
+class NewPayerScreen extends StatelessWidget {
+  const NewPayerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 221, 220, 220),
       appBar: customAppBar(
-        "New Business ",
+        "New Payer",
         context,
         isHome: false,
       ),
@@ -19,16 +19,10 @@ class BusinessDetailScreen extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(
-                height: 20,
+                height: 50,
               ),
               const CustomTextField(
-                hintText: "Business Name*",
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const CustomTextField(
-                hintText: "Email Address*",
+                hintText: "Payer Name*",
               ),
               const SizedBox(
                 height: 20,
@@ -40,19 +34,9 @@ class BusinessDetailScreen extends StatelessWidget {
                 height: 20,
               ),
               const CustomTextField(
-                hintText: "Website",
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const CustomTextField(
                 hintText: "Address*",
                 isBigField: true,
               ),
-              const SizedBox(
-                height: 50,
-              ),
-              const AddLogoWidget(),
               const SizedBox(
                 height: 50,
               ),

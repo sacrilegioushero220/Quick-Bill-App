@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quick_bill/Screens/business_detail_screen.dart';
+import 'package:quick_bill/Screens/new_payer_screen.dart';
 import 'package:quick_bill/constants/string_constants.dart';
 import 'package:quick_bill/widgets/custom_widgets.dart';
 
@@ -47,6 +48,8 @@ class NewInvoiceScreen extends StatelessWidget {
                   title: "Invoice to",
                   subtitle: 'add payer',
                   isCompleted: false,
+                  isScreenNull: false,
+                  screen: const NewPayerScreen(),
                 ),
                 const SizedBox(
                   height: 15,
