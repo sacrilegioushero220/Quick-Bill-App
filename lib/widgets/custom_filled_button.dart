@@ -13,7 +13,12 @@ class CustomFilledButton extends StatelessWidget {
             const Color.fromARGB(255, 27, 50, 140)),
       ),
       onPressed: onPressed,
-      child: Text(title),
+      child: Text(
+        title,
+        style: const TextStyle(
+          color: Colors.white,
+        ),
+      ),
     );
   }
 }
