@@ -6,18 +6,9 @@ import 'package:quick_bill/constants/string_constants.dart';
 PreferredSizeWidget customAppBar() {
   return AppBar(
     flexibleSpace: Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment(0.99, -0.15),
-          end: Alignment(-0.99, 0.15),
-          colors: [
-            Color.fromARGB(255, 28, 65, 146),
-            Color(0xff00aeef),
-          ],
-        ),
-      ),
+      decoration: const BoxDecoration(),
     ),
-    backgroundColor: Colors.transparent,
+    backgroundColor: const Color.fromARGB(255, 27, 50, 140),
     toolbarHeight: 70,
     centerTitle: true,
     leading: Padding(
@@ -28,13 +19,13 @@ PreferredSizeWidget customAppBar() {
       fit:
           BoxFit.scaleDown, // Scale down the text to fit within available space
       child: Text(
-        "JEEVANS DIABETES & ENDOCRINOLOGY",
+        "My Invoices",
         textAlign: TextAlign.center,
-        style: GoogleFonts.koulen(
+        style: GoogleFonts.beVietnamPro(
           textStyle: const TextStyle(
             color: Colors.white,
-            fontSize: 21,
-            fontWeight: FontWeight.w400,
+            fontSize: 25,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),
