@@ -61,6 +61,16 @@ class NewInvoiceScreen extends StatelessWidget {
                   subtitle: 'add payment instructions',
                   isCompleted: false,
                 ),
+                const SizedBox(
+                  height: 15,
+                ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomFilledButton(title: "Preview"),
+                    CustomFilledButton(title: "Save")
+                  ],
+                )
               ],
             ),
           ),
