@@ -8,6 +8,9 @@ class NewInvoiceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar("New Invoice", isHome: false),
+      body: Center(
+        child: ,
+      ),
     );
   }
 }
