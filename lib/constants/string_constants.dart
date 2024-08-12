@@ -10,3 +10,4 @@ String greenTick = "assets/greenTick.png";
 String org = "assets/Org.png";
 String payment = "assets/payment.png";
 String signature = "assets/signature.png";
+String rightArrow = "assets/rightArrow.png";

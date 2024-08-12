@@ -7,7 +7,7 @@ class NewInvoiceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(),
+      appBar: customAppBar("New Invoice", isHome: false),
     );
   }
 }
