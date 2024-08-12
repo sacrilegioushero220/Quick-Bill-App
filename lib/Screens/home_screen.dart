@@ -21,7 +21,10 @@ class HomeScreen extends StatelessWidget {
           addPageIcon,
         ),
       ),
-      appBar: customAppBar("My Invoices"),
+      appBar: customAppBar(
+        "My Invoices",
+        context,
+      ),
       body: const Center(
         child: Text("No Invoice generated"),
       ),

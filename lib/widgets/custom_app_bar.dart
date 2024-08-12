@@ -4,7 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_bill/constants/string_constants.dart';
 
 PreferredSizeWidget customAppBar(
-  String title, {
+  String title,
+  BuildContext context, {
   bool isHome = true,
 }) {
   return AppBar(
@@ -19,7 +20,9 @@ PreferredSizeWidget customAppBar(
       child: isHome
           ? SvgPicture.asset(squareLogo)
           : IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+              },
               icon: Image.asset(rightArrow),
             ),
     ),

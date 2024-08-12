@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:quick_bill/Screens/business_detail_screen.dart';
 import 'package:quick_bill/constants/string_constants.dart';
-import 'package:quick_bill/widgets/custom_app_bar.dart';
 import 'package:quick_bill/widgets/custom_widgets.dart';
 
 class NewInvoiceScreen extends StatelessWidget {
@@ -11,7 +10,11 @@ class NewInvoiceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 221, 220, 220),
-      appBar: customAppBar("New Invoice", isHome: false),
+      appBar: customAppBar(
+        "New Invoice",
+        context,
+        isHome: false,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -33,6 +36,8 @@ class NewInvoiceScreen extends StatelessWidget {
                   title: "Your Details",
                   subtitle: 'Add your business details',
                   isCompleted: false,
+                  isScreenNull: false,
+                  screen: const BusinessDetailScreen(),
                 ),
                 const SizedBox(
                   height: 15,
