@@ -14,56 +14,59 @@ class BusinessDetailScreen extends StatelessWidget {
         context,
         isHome: false,
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(left: 20, right: 20),
+          padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              CustomTextField(
+              const CustomTextField(
                 hintText: "Business Name*",
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              CustomTextField(
+              const CustomTextField(
                 hintText: "Email Address*",
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              CustomTextField(
+              const CustomTextField(
                 hintText: "Phone number*",
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              CustomTextField(
+              const CustomTextField(
                 hintText: "Website",
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              CustomTextField(
+              const CustomTextField(
                 hintText: "Address*",
                 isBigField: true,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
-              AddLogoWidget(),
-              SizedBox(
+              const AddLogoWidget(),
+              const SizedBox(
                 height: 50,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
-                  CustomFilledButton(title: 'Save')
+                  CustomFilledButton(
+                    title: 'Save',
+                    onPressed: () {},
+                  )
                 ],
               )
             ],
