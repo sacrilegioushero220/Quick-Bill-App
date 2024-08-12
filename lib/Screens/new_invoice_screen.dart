@@ -33,7 +33,34 @@ class NewInvoiceScreen extends StatelessWidget {
                   title: "Your Details",
                   subtitle: 'Add your business details',
                   isCompleted: false,
-                )
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                InvoiceDetailsCard(
+                  iconPath: addAccount,
+                  title: "Invoice to",
+                  subtitle: 'add payer',
+                  isCompleted: false,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                InvoiceDetailsCard(
+                  iconPath: addToCart,
+                  title: "Items",
+                  subtitle: 'add items to your invoice',
+                  isCompleted: false,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                InvoiceDetailsCard(
+                  iconPath: payment,
+                  title: "Payment",
+                  subtitle: 'add payment instructions',
+                  isCompleted: false,
+                ),
               ],
             ),
           ),

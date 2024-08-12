@@ -45,13 +45,13 @@ class InvoiceDetailsCard extends StatelessWidget {
                 padding: const EdgeInsets.only(
                   right: 20,
                 ),
-                child: Image.asset(org)),
+                child: Image.asset(iconPath)),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Your Details",
+                    title,
                     style: GoogleFonts.beVietnamPro(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -61,7 +61,7 @@ class InvoiceDetailsCard extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    "Add your business details",
+                    subtitle,
                     style: GoogleFonts.beVietnamPro(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
