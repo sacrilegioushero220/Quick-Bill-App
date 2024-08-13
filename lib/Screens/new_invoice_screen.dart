@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quick_bill/Screens/add_item_screen.dart';
 import 'package:quick_bill/Screens/business_detail_screen.dart';
 import 'package:quick_bill/Screens/new_payer_screen.dart';
+import 'package:quick_bill/Screens/signature_screen.dart';
 import 'package:quick_bill/constants/string_constants.dart';
 import 'package:quick_bill/widgets/custom_widgets.dart';
 
@@ -81,6 +82,8 @@ class NewInvoiceScreen extends StatelessWidget {
                   title: "Signature",
                   subtitle: 'add your Signature',
                   isCompleted: false,
+                  isScreenNull: false,
+                  screen: const SignatureScreen(),
                 ),
                 const SizedBox(
                   height: 15,
