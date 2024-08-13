@@ -71,6 +71,16 @@ class NewInvoiceScreen extends StatelessWidget {
                   title: "Payment",
                   subtitle: 'add payment instructions',
                   isCompleted: false,
+                  isDialog: true,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                InvoiceDetailsCard(
+                  iconPath: signature,
+                  title: "Signature",
+                  subtitle: 'add your Signature',
+                  isCompleted: false,
                 ),
                 const SizedBox(
                   height: 15,

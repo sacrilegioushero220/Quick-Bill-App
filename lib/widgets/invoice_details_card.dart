@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_bill/Screens/new_invoice_screen.dart';
 import 'package:quick_bill/constants/string_constants.dart';
+import 'package:quick_bill/widgets/custom_widgets.dart';
 
 class InvoiceDetailsCard extends StatelessWidget {
   final String iconPath;
@@ -10,6 +11,7 @@ class InvoiceDetailsCard extends StatelessWidget {
   final bool isCompleted;
   final Widget? screen;
   final bool isScreenNull;
+  final bool isDialog;
   const InvoiceDetailsCard({
     super.key,
     required this.iconPath,
@@ -18,6 +20,7 @@ class InvoiceDetailsCard extends StatelessWidget {
     this.isCompleted = false,
     this.screen,
     this.isScreenNull = true,
+    this.isDialog = false,
   });
 
   @override
@@ -79,11 +82,13 @@ class InvoiceDetailsCard extends StatelessWidget {
                   ? Image.asset(greenTick)
                   : IconButton(
                       onPressed: () {
-                        isScreenNull
-                            ? null
-                            : Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    screen ?? const NewInvoiceScreen()));
+                        isDialog
+                            ? showPaymentDialog(context)
+                            : isScreenNull
+                                ? null
+                                : Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        screen ?? const NewInvoiceScreen()));
                       },
                       icon: Image.asset(leftArrow),
                     ),
