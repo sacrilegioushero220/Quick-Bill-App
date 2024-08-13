@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class InvoiceCard extends StatelessWidget {
+  final String invoiceId;
+  final String dateNow;
   const InvoiceCard({
     super.key,
+    required this.invoiceId,
+    required this.dateNow,
   });
 
   @override
@@ -26,7 +30,7 @@ class InvoiceCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "INVOICE ID  #103445676775",
+              "INVOICE ID  #$invoiceId",
               style: GoogleFonts.beVietnamPro(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
@@ -36,7 +40,7 @@ class InvoiceCard extends StatelessWidget {
               height: 15,
             ),
             Text(
-              "Created on 2022-03-11",
+              "Created on $dateNow",
               style: GoogleFonts.beVietnamPro(
                   fontSize: 16, color: const Color.fromARGB(145, 0, 0, 0)),
             ),
