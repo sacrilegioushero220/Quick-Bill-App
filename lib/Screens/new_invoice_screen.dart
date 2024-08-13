@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quick_bill/Screens/add_item_screen.dart';
 import 'package:quick_bill/Screens/business_detail_screen.dart';
 import 'package:quick_bill/Screens/new_payer_screen.dart';
 import 'package:quick_bill/constants/string_constants.dart';
@@ -59,6 +60,8 @@ class NewInvoiceScreen extends StatelessWidget {
                   title: "Items",
                   subtitle: 'add items to your invoice',
                   isCompleted: false,
+                  isScreenNull: false,
+                  screen: const AddItemScreen(),
                 ),
                 const SizedBox(
                   height: 15,
