@@ -6,6 +6,7 @@ class AddPaymentDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = TextEditingController();
     return AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
@@ -18,17 +19,18 @@ class AddPaymentDialog extends StatelessWidget {
           ),
         ),
       ),
-      content: const SizedBox(
+      content: SizedBox(
         width: double.maxFinite,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             CustomTextField(
+              controller: controller,
               hintText: 'Note*',
               isBigField: true,
             ),
-            SizedBox(height: 10.0),
-            Align(
+            const SizedBox(height: 10.0),
+            const Align(
                 alignment: Alignment.bottomRight,
                 child: CustomFilledButton(title: "Save")),
           ],

@@ -6,6 +6,7 @@ class NewPayerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = TextEditingController();
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 221, 220, 220),
       appBar: customAppBar(
@@ -21,19 +22,22 @@ class NewPayerScreen extends StatelessWidget {
               const SizedBox(
                 height: 50,
               ),
-              const CustomTextField(
+              CustomTextField(
+                controller: controller,
                 hintText: "Payer Name*",
               ),
               const SizedBox(
                 height: 20,
               ),
-              const CustomTextField(
+              CustomTextField(
+                controller: controller,
                 hintText: "Phone number*",
               ),
               const SizedBox(
                 height: 20,
               ),
-              const CustomTextField(
+              CustomTextField(
+                controller: controller,
                 hintText: "Address*",
                 isBigField: true,
               ),

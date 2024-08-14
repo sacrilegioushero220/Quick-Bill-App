@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatelessWidget {
   final String hintText;
   final bool isBigField;
-  const CustomTextField({
-    super.key,
-    required this.hintText,
-    this.isBigField = false,
-  });
+  final TextEditingController controller;
+  const CustomTextField(
+      {super.key,
+      required this.hintText,
+      this.isBigField = false,
+      required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: TextEditingController(),
+      controller: controller,
       maxLines: isBigField ? 4 : 1,
       decoration: InputDecoration(
         filled: true,

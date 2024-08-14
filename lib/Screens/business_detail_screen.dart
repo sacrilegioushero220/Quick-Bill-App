@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quick_bill/Cubits/invoice_cubit/invoice_cubit.dart';
+import 'package:quick_bill/controllers/business_controllers.dart';
+import 'package:quick_bill/model/models.dart';
 import 'package:quick_bill/widgets/custom_widgets.dart';
 
 class BusinessDetailScreen extends StatelessWidget {
-  const BusinessDetailScreen({super.key});
+  const BusinessDetailScreen({
+    super.key,
+    required this.businessControllers,
+  });
+
+  final BusinessControllers businessControllers;
 
   @override
   Widget build(BuildContext context) {
@@ -21,31 +30,36 @@ class BusinessDetailScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              const CustomTextField(
+              CustomTextField(
+                controller: businessControllers.businessNameController,
                 hintText: "Business Name*",
               ),
               const SizedBox(
                 height: 20,
               ),
-              const CustomTextField(
+              CustomTextField(
+                controller: businessControllers.businessEmailController,
                 hintText: "Email Address*",
               ),
               const SizedBox(
                 height: 20,
               ),
-              const CustomTextField(
+              CustomTextField(
+                controller: businessControllers.businessPhoneController,
                 hintText: "Phone number*",
               ),
               const SizedBox(
                 height: 20,
               ),
-              const CustomTextField(
+              CustomTextField(
+                controller: businessControllers.businessWebsiteController,
                 hintText: "Website",
               ),
               const SizedBox(
                 height: 20,
               ),
-              const CustomTextField(
+              CustomTextField(
+                controller: businessControllers.businessAddressController,
                 hintText: "Address*",
                 isBigField: true,
               ),
@@ -64,7 +78,13 @@ class BusinessDetailScreen extends StatelessWidget {
                   ),
                   CustomFilledButton(
                     title: 'Save',
-                    onPressed: () {},
+                    onPressed: () {
+                      BlocProvider.of<InvoiceCubit>(context)
+                          .updateBusinessDetails(
+                        businessControllers,
+                        context,
+                      );
+                    },
                   )
                 ],
               )

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_bill/Cubits/invoice_cubit/invoice_cubit.dart';
 import 'package:quick_bill/Screens/splash_screen.dart';
+import 'package:quick_bill/cubits/bloc_observer.dart';
 
 void main() {
+  Bloc.observer = CustomBlocObserver();
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(

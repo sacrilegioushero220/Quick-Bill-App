@@ -6,6 +6,7 @@ class AddNewItemDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = TextEditingController();
     return AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
@@ -18,18 +19,27 @@ class AddNewItemDialog extends StatelessWidget {
           ),
         ),
       ),
-      content: const SizedBox(
+      content: SizedBox(
         width: double.maxFinite,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CustomTextField(hintText: 'Item name'),
-            SizedBox(height: 10.0),
-            CustomTextField(hintText: 'Item cost'),
-            SizedBox(height: 10.0),
-            CustomTextField(hintText: "Quantity"),
-            SizedBox(height: 20.0),
-            Align(
+            CustomTextField(
+              controller: controller,
+              hintText: 'Item name',
+            ),
+            const SizedBox(height: 10.0),
+            CustomTextField(
+              controller: controller,
+              hintText: 'Item cost',
+            ),
+            const SizedBox(height: 10.0),
+            CustomTextField(
+              controller: controller,
+              hintText: "Quantity",
+            ),
+            const SizedBox(height: 20.0),
+            const Align(
                 alignment: Alignment.bottomRight,
                 child: CustomFilledButton(title: "Add")),
           ],
