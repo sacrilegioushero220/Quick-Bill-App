@@ -51,6 +51,7 @@ class InvoiceCubit extends Cubit<InvoiceState> {
           logo: '', // Add logo handling logic
         );
         final currentState = state;
+        print("currentState: $currentState");
         print("Business details $business");
         if (currentState is InvoiceData) {
           emit(InvoiceData(

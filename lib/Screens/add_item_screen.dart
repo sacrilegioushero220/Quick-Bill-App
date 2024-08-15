@@ -1,56 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_bill/constants/string_constants.dart';
+import 'package:quick_bill/cubits/items_cubit/items_cubit.dart';
 import 'package:quick_bill/model/models.dart';
 import 'package:quick_bill/widgets/custom_widgets.dart';
 
-class AddItemScreen extends StatefulWidget {
+class AddItemScreen extends StatelessWidget {
   const AddItemScreen({super.key});
 
   @override
-  _AddItemScreenState createState() => _AddItemScreenState();
-}
-
-class _AddItemScreenState extends State<AddItemScreen> {
-  List<Item> items = [];
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton.large(
-        onPressed: () async {
-          final newItem = await showAddNewItemDialog(context);
-          if (newItem != null) {
-            setState(() {
-              items.add(newItem);
-            });
-          }
-        },
-        backgroundColor: const Color.fromARGB(255, 27, 50, 140),
-        child: Image.asset(
-          addToCart,
-          color: Colors.white,
+    return BlocProvider(
+      create: (context) => ItemCubit(),
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton.large(
+          onPressed: () async {
+            final newItem = await showAddNewItemDialog(context);
+            if (newItem != null) {
+              context.read<ItemCubit>().addItem(newItem);
+            }
+          },
+          backgroundColor: const Color.fromARGB(255, 27, 50, 140),
+          child: Image.asset(
+            addToCart,
+            color: Colors.white,
+          ),
         ),
-      ),
-      backgroundColor: const Color.fromARGB(255, 221, 220, 220),
-      appBar: customAppBar(
-        "Add Items",
-        context,
-        isHome: false,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
-          child: Column(
-            children: [
-              if (items.isNotEmpty) _buildItemsTable(),
-            ],
+        backgroundColor: const Color.fromARGB(255, 221, 220, 220),
+        appBar: customAppBar(
+          "Add Items",
+          context,
+          isHome: false,
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: BlocBuilder<ItemCubit, List<Item>>(
+              builder: (context, items) {
+                return Column(
+                  children: [
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    if (items.isNotEmpty) _buildItemsTable(items),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildItemsTable() {
+  Widget _buildItemsTable(List<Item> items) {
     return Table(
       border: TableBorder.all(),
       columnWidths: const {

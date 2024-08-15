@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_bill/Cubits/invoice_cubit/invoice_cubit.dart';
 import 'package:quick_bill/Screens/splash_screen.dart';
 import 'package:quick_bill/cubits/bloc_observer.dart';
+import 'package:quick_bill/cubits/items_cubit/items_cubit.dart';
 
 void main() {
   Bloc.observer = CustomBlocObserver();
@@ -10,6 +11,9 @@ void main() {
     providers: [
       BlocProvider(
         create: (context) => InvoiceCubit(),
+      ),
+      BlocProvider(
+        create: (context) => ItemCubit(),
       ),
     ],
     child: const MainApp(),

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quick_bill/Cubits/invoice_cubit/invoice_cubit.dart';
+import 'package:quick_bill/Screens/home_screen.dart';
 import 'package:quick_bill/widgets/custom_widgets.dart';
 
 class AddPaymentDialog extends StatelessWidget {
-  const AddPaymentDialog({super.key});
+  final TextEditingController notesController = TextEditingController();
+  AddPaymentDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = TextEditingController();
     return AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
@@ -25,14 +28,22 @@ class AddPaymentDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             CustomTextField(
-              controller: controller,
+              controller: notesController,
               hintText: 'Note*',
               isBigField: true,
             ),
             const SizedBox(height: 10.0),
-            const Align(
+            Align(
                 alignment: Alignment.bottomRight,
-                child: CustomFilledButton(title: "Save")),
+                child: CustomFilledButton(
+                  title: "Save",
+                  onPressed: () {
+                    final notesData = notesController.text.trim();
+                    context
+                        .read<InvoiceCubit>()
+                        .updatePaymentInstructions(notesData);
+                  },
+                )),
           ],
         ),
       ),
@@ -45,7 +56,7 @@ void showPaymentDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return const AddPaymentDialog();
+      return AddPaymentDialog();
     },
   );
 }

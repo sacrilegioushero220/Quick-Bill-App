@@ -1,4 +1,9 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quick_bill/Cubits/invoice_cubit/invoice_cubit.dart';
+import 'package:quick_bill/Screens/home_screen.dart';
 import 'package:quick_bill/widgets/custom_widgets.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 
@@ -39,13 +44,25 @@ class SignatureScreen extends StatelessWidget {
               const SizedBox(
                 height: 50,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomFilledButton(
                     title: "clear",
+                    onPressed: () {
+                      _signaturePadKey.currentState!.clear();
+                    },
                   ),
-                  CustomFilledButton(title: "Save")
+                  CustomFilledButton(
+                    title: "Save",
+                    onPressed: () async {
+                      ui.Image image =
+                          await _signaturePadKey.currentState!.toImage();
+                      final pngBytes = await image.toByteData(
+                          format: ui.ImageByteFormat.png);
+                      context.read<InvoiceCubit>().updateSignature(pngBytes!);
+                    },
+                  )
                 ],
               )
             ],

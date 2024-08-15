@@ -8,6 +8,7 @@ import 'package:quick_bill/constants/string_constants.dart';
 import 'package:quick_bill/controllers/business_controllers.dart';
 import 'package:quick_bill/controllers/customer_controllers.dart';
 import 'package:quick_bill/cubits/invoice_cubit/invoice_cubit.dart';
+import 'package:quick_bill/cubits/items_cubit/items_cubit.dart';
 import 'package:quick_bill/model/models.dart';
 import 'package:quick_bill/widgets/custom_widgets.dart';
 
@@ -119,6 +120,8 @@ class NewInvoiceScreen extends StatelessWidget {
                           CustomFilledButton(
                             title: "Save",
                             onPressed: () {
+                              final items = context.read<ItemCubit>().state;
+                              context.read<InvoiceCubit>().updateItems(items);
                               Invoice? invoice =
                                   context.read<InvoiceCubit>().getInvoice();
                               print("Invoice: $invoice");
