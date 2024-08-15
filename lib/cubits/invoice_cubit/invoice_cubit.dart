@@ -24,52 +24,6 @@ class InvoiceCubit extends Cubit<InvoiceState> {
     ));
   }
 
-  void updateBusinessDetails(
-    BusinessControllers controller,
-    BuildContext context,
-  ) {
-    BusinessDetails business;
-    try {
-      if (controller.businessNameController.text.trim().isEmpty ||
-          controller.businessEmailController.text.trim().isEmpty ||
-          controller.businessPhoneController.text.trim().isEmpty ||
-          controller.businessAddressController.text.trim().isEmpty) {
-        // Show an error message using a dialog or snack bar
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Please input valid details'),
-            duration: Duration(seconds: 1),
-          ),
-        );
-      } else {
-        business = BusinessDetails(
-          name: controller.businessNameController.text,
-          address: controller.businessAddressController.text,
-          phone: controller.businessPhoneController.text,
-          email: controller.businessEmailController.text,
-          website: controller.businessWebsiteController.text,
-          logo: '', // Add logo handling logic
-        );
-        final currentState = state;
-        print("currentState: $currentState");
-        print("Business details $business");
-        if (currentState is InvoiceData) {
-          emit(InvoiceData(
-            invoiceId: currentState.invoiceId,
-            date: currentState.date,
-            businessDetails: business,
-            payerDetails: currentState.payerDetails,
-            items: currentState.items,
-            paymentInstructions: currentState.paymentInstructions,
-            signature: currentState.signature,
-          ));
-        }
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
   void updatePayerDetails(
       BuildContext context, CustomerControllers controller) {
     Customer customer;

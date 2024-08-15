@@ -4,6 +4,7 @@ import 'package:quick_bill/Cubits/invoice_cubit/invoice_cubit.dart';
 import 'package:quick_bill/Screens/splash_screen.dart';
 import 'package:quick_bill/cubits/bloc_observer.dart';
 import 'package:quick_bill/cubits/items_cubit/items_cubit.dart';
+import 'package:quick_bill/cubits/storage_cubit/storage_cubit.dart';
 
 void main() {
   Bloc.observer = CustomBlocObserver();
@@ -14,6 +15,9 @@ void main() {
       ),
       BlocProvider(
         create: (context) => ItemCubit(),
+      ),
+      BlocProvider(
+        create: (context) => StorageCubit(),
       ),
     ],
     child: const MainApp(),
