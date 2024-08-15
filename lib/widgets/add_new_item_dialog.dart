@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:quick_bill/widgets/custom_widgets.dart';
 
+import '../model/models.dart';
+
 class AddNewItemDialog extends StatelessWidget {
-  const AddNewItemDialog({super.key});
+  AddNewItemDialog({super.key});
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
+  final TextEditingController qtyController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final controller = TextEditingController();
     return AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
@@ -25,37 +30,55 @@ class AddNewItemDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             CustomTextField(
-              controller: controller,
+              controller: nameController,
               hintText: 'Item name',
             ),
             const SizedBox(height: 10.0),
             CustomTextField(
-              controller: controller,
+              controller: priceController,
               hintText: 'Item cost',
+              keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 10.0),
             CustomTextField(
-              controller: controller,
+              controller: qtyController,
               hintText: "Quantity",
+              keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 20.0),
-            const Align(
-                alignment: Alignment.bottomRight,
-                child: CustomFilledButton(title: "Add")),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: ElevatedButton(
+                onPressed: () {
+                  if (nameController.text.isNotEmpty &&
+                      priceController.text.isNotEmpty &&
+                      qtyController.text.isNotEmpty) {
+                    final newItem = Item(
+                      name: nameController.text,
+                      qty: int.parse(qtyController.text),
+                      price: double.parse(priceController.text),
+                    );
+                    Navigator.of(context).pop(newItem);
+                  } else {
+                    // Show an error message or handle invalid input
+                  }
+                },
+                child: const Text("Add"),
+              ),
+            ),
           ],
         ),
       ),
-      backgroundColor: const Color.fromARGB(
-          255, 221, 220, 220), // Background color of the dialog
+      backgroundColor: const Color.fromARGB(255, 221, 220, 220),
     );
   }
 }
 
-void showAddNewItemDialog(BuildContext context) {
-  showDialog(
+Future<Item?> showAddNewItemDialog(BuildContext context) {
+  return showDialog<Item?>(
     context: context,
     builder: (BuildContext context) {
-      return const AddNewItemDialog();
+      return AddNewItemDialog();
     },
   );
 }

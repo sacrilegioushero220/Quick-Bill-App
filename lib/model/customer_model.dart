@@ -9,4 +9,8 @@ class Customer {
     required this.phone,
     required this.email,
   });
+  @override
+  String toString() {
+    return 'Customer(name: $name, address: $address, phone: $phone, email: $email)';
+  }
 }

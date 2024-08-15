@@ -6,7 +6,9 @@ import 'package:quick_bill/Screens/new_payer_screen.dart';
 import 'package:quick_bill/Screens/signature_screen.dart';
 import 'package:quick_bill/constants/string_constants.dart';
 import 'package:quick_bill/controllers/business_controllers.dart';
+import 'package:quick_bill/controllers/customer_controllers.dart';
 import 'package:quick_bill/cubits/invoice_cubit/invoice_cubit.dart';
+import 'package:quick_bill/model/models.dart';
 import 'package:quick_bill/widgets/custom_widgets.dart';
 
 class NewInvoiceScreen extends StatelessWidget {
@@ -71,7 +73,9 @@ class NewInvoiceScreen extends StatelessWidget {
                         subtitle: 'add payer',
                         isCompleted: false,
                         isScreenNull: false,
-                        screen: const NewPayerScreen(),
+                        screen: NewPayerScreen(
+                          customerController: CustomerControllers(),
+                        ),
                       ),
                       const SizedBox(
                         height: 15,
@@ -108,11 +112,18 @@ class NewInvoiceScreen extends StatelessWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomFilledButton(title: "Preview"),
-                          CustomFilledButton(title: "Save")
+                          const CustomFilledButton(title: "Preview"),
+                          CustomFilledButton(
+                            title: "Save",
+                            onPressed: () {
+                              Invoice? invoice =
+                                  context.read<InvoiceCubit>().getInvoice();
+                              print("Invoice: $invoice");
+                            },
+                          )
                         ],
                       ),
                     ],
