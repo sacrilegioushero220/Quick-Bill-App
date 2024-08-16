@@ -10,7 +10,7 @@ part 'storage_state.dart';
 
 class StorageCubit extends Cubit<StorageState> {
   StorageCubit() : super(StorageInitial());
-
+  List<Item> itemList = [];
   void updateBusinessDetails(
     BusinessControllers controller,
     BuildContext context,
@@ -131,5 +131,40 @@ class StorageCubit extends Cubit<StorageState> {
     } catch (e) {
       emit(StorageError(message: "Failed to load business details"));
     }
+  }
+
+  void addItem(Item item) async {
+    itemList.add(item);
+    // Save the updated list to SharedPreferences
+    await _saveItemListToPreferences();
+    emit(ItemAdded(item: List.from(itemList))); // Emit the updated list
+  }
+
+  Future<void> _saveItemListToPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    // Convert the list of items to a list of JSON strings
+    List<String> jsonStringList =
+        itemList.map((item) => json.encode(item.toJson())).toList();
+    // Save the JSON string list to SharedPreferences
+    await prefs.setStringList('itemList', jsonStringList);
+  }
+
+  Future<void> loadItemListFromPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    // Retrieve the list of JSON strings from SharedPreferences
+    List<String>? jsonStringList = prefs.getStringList('itemList');
+    if (jsonStringList != null) {
+      itemList = jsonStringList
+          .map((jsonString) => Item.fromJson(json.decode(jsonString)))
+          .toList();
+      emit(ItemLoaded(item: List.from(itemList))); // Emit the loaded list
+    }
+  }
+
+  Future<void> clearItemList() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('itemList'); // Remove the list from SharedPreferences
+    itemList.clear(); // Clear the local list
+    emit(ItemCleared());
   }
 }

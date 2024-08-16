@@ -21,6 +21,20 @@ final class CustomerDetailsSaved extends StorageState {
   CustomerDetailsSaved({required this.details});
 }
 
+final class ItemAdded extends StorageState {
+  final List<Item> item;
+
+  ItemAdded({required this.item});
+}
+
+final class ItemLoaded extends StorageState {
+  final List<Item> item;
+
+  ItemLoaded({required this.item});
+}
+
+final class ItemCleared extends StorageState {}
+
 final class StorageLoaded extends StorageState {}
 
 final class StorageEmpty extends StorageState {}

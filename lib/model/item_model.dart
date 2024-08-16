@@ -13,7 +13,7 @@ class Item {
         name,
         "$qty",
         "₨ ${price.toStringAsFixed(1)}",
-        ((price * qty).toStringAsFixed(1))
+        (price * qty).toStringAsFixed(1),
       ];
 
   // JSON serialization
@@ -32,5 +32,11 @@ class Item {
       qty: json['qty'],
       price: json['price'],
     );
+  }
+
+  // Override toString
+  @override
+  String toString() {
+    return 'Item(name: $name, qty: $qty, price: ₨ ${price.toStringAsFixed(1)}, total: ₨ ${(price * qty).toStringAsFixed(1)})';
   }
 }
