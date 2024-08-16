@@ -15,6 +15,12 @@ final class BusinessDetailsSaved extends StorageState {
   BusinessDetailsSaved({required this.details});
 }
 
+final class CustomerDetailsSaved extends StorageState {
+  final Customer details;
+
+  CustomerDetailsSaved({required this.details});
+}
+
 final class StorageLoaded extends StorageState {}
 
 final class StorageEmpty extends StorageState {}

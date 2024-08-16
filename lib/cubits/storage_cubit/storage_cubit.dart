@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_bill/controllers/business_controllers.dart';
+import 'package:quick_bill/controllers/customer_controllers.dart';
 import 'package:quick_bill/model/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 part 'storage_state.dart';
@@ -65,6 +66,65 @@ class StorageCubit extends Cubit<StorageState> {
             BusinessDetails.fromJson(jsonDecode(businessJson));
         print("Business details: $details");
         emit(BusinessDetailsSaved(details: details));
+      } else {
+        emit(StorageEmpty());
+      }
+    } catch (e) {
+      emit(StorageError(message: "Failed to load business details"));
+    }
+  }
+
+  void updateCustomerDetails(
+    CustomerControllers controller,
+    BuildContext context,
+  ) {
+    BusinessDetails business;
+    try {
+      if (controller.customerNameInputController.text.trim().isEmpty ||
+          controller.customerEmailInputController.text.trim().isEmpty ||
+          controller.customerPhoneInputController.text.trim().isEmpty ||
+          controller.customerAddressInputController.text.trim().isEmpty) {
+        // Show an error message using a dialog or snack bar
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please input valid details'),
+            duration: Duration(seconds: 1),
+          ),
+        );
+      } else {
+        final customer = Customer(
+            address: controller.customerAddressInputController.text,
+            email: controller.customerEmailInputController.text,
+            name: controller.customerNameInputController.text,
+            phone: controller.customerPhoneInputController.text);
+        saveCustomerDetails(customer);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> saveCustomerDetails(Customer details) async {
+    try {
+      emit(StorageSaving());
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String businessJson = jsonEncode(details.toJson());
+      await prefs.setString('customer_details', businessJson);
+      emit(CustomerDetailsSaved(details: details));
+    } catch (e) {
+      emit(StorageError(message: "Failed to save customer details"));
+    }
+  }
+
+  Future<void> loadCustomerDetails() async {
+    try {
+      emit(StorageLoading());
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? customerJson = prefs.getString('customer_details');
+      if (customerJson != null) {
+        Customer details = Customer.fromJson(jsonDecode(customerJson));
+        print("Customer details: $details");
+        emit(CustomerDetailsSaved(details: details));
       } else {
         emit(StorageEmpty());
       }

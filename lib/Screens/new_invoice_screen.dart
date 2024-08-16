@@ -18,7 +18,6 @@ class NewInvoiceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isCompleted = false;
     return BlocProvider(
       create: (context) => InvoiceCubit()..createInvoice(),
       child: Scaffold(
@@ -37,6 +36,12 @@ class NewInvoiceScreen extends StatelessWidget {
               ),
               child: BlocBuilder<InvoiceCubit, InvoiceState>(
                 builder: (context, state) {
+                  bool isCompleted1 = false;
+                  bool isCompleted2 = false;
+                  bool isCompleted3 = false;
+                  bool isCompleted4 = false;
+                  bool isCompleted5 = false;
+
                   String invoiceId = 'N/A';
                   String dateNow = 'N/A';
                   print("Current state is : $state");
@@ -48,7 +53,9 @@ class NewInvoiceScreen extends StatelessWidget {
                   return BlocConsumer<StorageCubit, StorageState>(
                     listener: (context, state) {
                       if (state is BusinessDetailsSaved) {
-                        isCompleted = true;
+                        isCompleted1 = true;
+                      } else if (state is CustomerDetailsSaved) {
+                        isCompleted2 = true;
                       }
                     },
                     builder: (context, state) {
@@ -68,7 +75,7 @@ class NewInvoiceScreen extends StatelessWidget {
                             iconPath: org,
                             title: "Your Details",
                             subtitle: 'Add your business details',
-                            isCompleted: isCompleted,
+                            isCompleted: isCompleted1,
                             isScreenNull: false,
                             screen: BusinessDetailScreen(
                               businessControllers: BusinessControllers(),
@@ -81,7 +88,7 @@ class NewInvoiceScreen extends StatelessWidget {
                             iconPath: addAccount,
                             title: "Invoice to",
                             subtitle: 'add payer',
-                            isCompleted: false,
+                            isCompleted: isCompleted2,
                             isScreenNull: false,
                             screen: NewPayerScreen(
                               customerController: CustomerControllers(),
