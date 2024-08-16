@@ -21,12 +21,12 @@ class BusinessControllers {
     businessWebsiteController.clear();
   }
 
-  Future<void> close() {
+  Future<void> dispose() {
     businessNameController.dispose();
     businessEmailController.dispose();
     businessPhoneController.dispose();
     businessAddressController.dispose();
     businessWebsiteController.dispose();
-    return close();
+    return dispose();
   }
 }
