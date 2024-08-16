@@ -18,6 +18,7 @@ class NewInvoiceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isCompleted = false;
     return BlocProvider(
       create: (context) => InvoiceCubit()..createInvoice(),
       child: Scaffold(
@@ -44,91 +45,100 @@ class NewInvoiceScreen extends StatelessWidget {
                     dateNow = state.date;
                   }
 
-                  return Column(
-                    children: [
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      InvoiceCard(
-                        invoiceId: invoiceId,
-                        dateNow: dateNow,
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      InvoiceDetailsCard(
-                        iconPath: org,
-                        title: "Your Details",
-                        subtitle: 'Add your business details',
-                        isCompleted: false,
-                        isScreenNull: false,
-                        screen: BusinessDetailScreen(
-                          businessControllers: BusinessControllers(),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      InvoiceDetailsCard(
-                        iconPath: addAccount,
-                        title: "Invoice to",
-                        subtitle: 'add payer',
-                        isCompleted: false,
-                        isScreenNull: false,
-                        screen: NewPayerScreen(
-                          customerController: CustomerControllers(),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      InvoiceDetailsCard(
-                        iconPath: addToCart,
-                        title: "Items",
-                        subtitle: 'add items to your invoice',
-                        isCompleted: false,
-                        isScreenNull: false,
-                        screen: const AddItemScreen(),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      InvoiceDetailsCard(
-                        iconPath: payment,
-                        title: "Payment",
-                        subtitle: 'add payment instructions',
-                        isCompleted: false,
-                        isDialog: true,
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      InvoiceDetailsCard(
-                        iconPath: signature,
-                        title: "Signature",
-                        subtitle: 'add your Signature',
-                        isCompleted: false,
-                        isScreenNull: false,
-                        screen: const SignatureScreen(),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  return BlocConsumer<StorageCubit, StorageState>(
+                    listener: (context, state) {
+                      if (state is BusinessDetailsSaved) {
+                        isCompleted = true;
+                      }
+                    },
+                    builder: (context, state) {
+                      return Column(
                         children: [
-                          const CustomFilledButton(title: "Preview"),
-                          CustomFilledButton(
-                            title: "Save",
-                            onPressed: () async {
-                              context
-                                  .read<StorageCubit>()
-                                  .loadBusinessDetails();
-                            },
-                          )
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          InvoiceCard(
+                            invoiceId: invoiceId,
+                            dateNow: dateNow,
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          InvoiceDetailsCard(
+                            iconPath: org,
+                            title: "Your Details",
+                            subtitle: 'Add your business details',
+                            isCompleted: isCompleted,
+                            isScreenNull: false,
+                            screen: BusinessDetailScreen(
+                              businessControllers: BusinessControllers(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          InvoiceDetailsCard(
+                            iconPath: addAccount,
+                            title: "Invoice to",
+                            subtitle: 'add payer',
+                            isCompleted: false,
+                            isScreenNull: false,
+                            screen: NewPayerScreen(
+                              customerController: CustomerControllers(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          InvoiceDetailsCard(
+                            iconPath: addToCart,
+                            title: "Items",
+                            subtitle: 'add items to your invoice',
+                            isCompleted: false,
+                            isScreenNull: false,
+                            screen: const AddItemScreen(),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          InvoiceDetailsCard(
+                            iconPath: payment,
+                            title: "Payment",
+                            subtitle: 'add payment instructions',
+                            isCompleted: false,
+                            isDialog: true,
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          InvoiceDetailsCard(
+                            iconPath: signature,
+                            title: "Signature",
+                            subtitle: 'add your Signature',
+                            isCompleted: false,
+                            isScreenNull: false,
+                            screen: const SignatureScreen(),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const CustomFilledButton(title: "Preview"),
+                              CustomFilledButton(
+                                title: "Save",
+                                onPressed: () async {
+                                  context
+                                      .read<StorageCubit>()
+                                      .loadBusinessDetails();
+                                },
+                              )
+                            ],
+                          ),
                         ],
-                      ),
-                    ],
+                      );
+                    },
                   );
                 },
               ),
