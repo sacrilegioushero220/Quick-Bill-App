@@ -25,7 +25,7 @@ PreferredSizeWidget customAppBar(
           : IconButton(
               onPressed: () {
                 clearItemList
-                    ? BlocProvider.of<StorageCubit>(context).clearItemList()
+                    ? BlocProvider.of<StorageCubit>(context).clearStorage()
                     : const SizedBox();
                 Navigator.pop(context);
               },

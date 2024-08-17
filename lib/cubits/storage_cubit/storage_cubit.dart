@@ -168,6 +168,16 @@ class StorageCubit extends Cubit<StorageState> {
     }
   }
 
+  Future<void> clearStorage() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('itemList');
+    await prefs
+        .remove('business_details'); // Remove the list from SharedPreferences
+    itemList.clear(); // Clear the local list
+    await prefs.remove('customer_details');
+    emit(StorageEmpty());
+  }
+
   Future<void> clearItemList() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('itemList'); // Remove the list from SharedPreferences

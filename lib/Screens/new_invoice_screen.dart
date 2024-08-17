@@ -25,6 +25,7 @@ class NewInvoiceScreen extends StatelessWidget {
           "New Invoice",
           context,
           isHome: false,
+          clearItemList: true,
         ),
         body: SafeArea(
           child: SingleChildScrollView(

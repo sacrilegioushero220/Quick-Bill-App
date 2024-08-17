@@ -89,10 +89,7 @@ class InvoiceDetailsCard extends StatelessWidget {
                 padding: const EdgeInsets.only(),
                 child: isCompleted
                     ? Image.asset(greenTick)
-                    : IconButton(
-                        onPressed: () {},
-                        icon: Image.asset(leftArrow),
-                      ),
+                    : Image.asset(leftArrow),
               )
             ],
           ),
