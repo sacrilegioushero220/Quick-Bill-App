@@ -42,7 +42,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
         "Add Items",
         context,
         isHome: false,
-        // clearItemList: true,
       ),
       body: SingleChildScrollView(
         child: Padding(

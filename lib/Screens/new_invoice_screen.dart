@@ -9,7 +9,6 @@ import 'package:quick_bill/controllers/business_controllers.dart';
 import 'package:quick_bill/controllers/customer_controllers.dart';
 import 'package:quick_bill/cubits/invoice_cubit/invoice_cubit.dart';
 import 'package:quick_bill/cubits/storage_cubit/storage_cubit.dart';
-import 'package:quick_bill/model/models.dart';
 import 'package:quick_bill/widgets/custom_widgets.dart';
 
 class NewInvoiceScreen extends StatelessWidget {

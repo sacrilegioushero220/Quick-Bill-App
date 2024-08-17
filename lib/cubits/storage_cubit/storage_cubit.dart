@@ -169,7 +169,12 @@ class StorageCubit extends Cubit<StorageState> {
       itemList = jsonStringList
           .map((jsonString) => Item.fromJson(json.decode(jsonString)))
           .toList();
-      emit(ItemLoaded(item: List.from(itemList))); // Emit the loaded list
+      print("ItemClearedList loaded:${List.from(itemList)}");
+      if (List.from(itemList).isEmpty) {
+        emit(ItemListCleared());
+      } else {
+        emit(ItemLoaded(item: List.from(itemList)));
+      } // Emit the loaded list
     }
   }
 
