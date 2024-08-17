@@ -25,75 +25,77 @@ class InvoiceDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: ShapeDecoration(
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(
-            width: 1,
-            color: Color(0xFFEBE0E2),
-          ),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        color: Colors.white,
-      ),
-      width: MediaQuery.of(context).size.width,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 30.0,
-          left: 30,
-          right: 15,
-          bottom: 30,
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-                padding: const EdgeInsets.only(
-                  right: 20,
-                ),
-                child: Image.asset(iconPath)),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: GoogleFonts.beVietnamPro(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    subtitle,
-                    style: GoogleFonts.beVietnamPro(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: const Color.fromARGB(145, 0, 0, 0)),
-                  ),
-                ],
-              ),
+    return GestureDetector(
+      onTap: () {
+        isDialog
+            ? showPaymentDialog(context)
+            : isScreenNull
+                ? null
+                : Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => screen ?? const NewInvoiceScreen()));
+      },
+      child: Container(
+        decoration: ShapeDecoration(
+          shape: RoundedRectangleBorder(
+            side: const BorderSide(
+              width: 1,
+              color: Color(0xFFEBE0E2),
             ),
-            Padding(
-              padding: const EdgeInsets.only(),
-              child: isCompleted
-                  ? Image.asset(greenTick)
-                  : IconButton(
-                      onPressed: () {
-                        isDialog
-                            ? showPaymentDialog(context)
-                            : isScreenNull
-                                ? null
-                                : Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        screen ?? const NewInvoiceScreen()));
-                      },
-                      icon: Image.asset(leftArrow),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          color: Colors.white,
+        ),
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 30.0,
+            left: 30,
+            right: 15,
+            bottom: 30,
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                  padding: const EdgeInsets.only(
+                    right: 20,
+                  ),
+                  child: Image.asset(iconPath)),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: GoogleFonts.beVietnamPro(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
-            )
-          ],
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      subtitle,
+                      style: GoogleFonts.beVietnamPro(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: const Color.fromARGB(145, 0, 0, 0)),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(),
+                child: isCompleted
+                    ? Image.asset(greenTick)
+                    : IconButton(
+                        onPressed: () {},
+                        icon: Image.asset(leftArrow),
+                      ),
+              )
+            ],
+          ),
         ),
       ),
     );

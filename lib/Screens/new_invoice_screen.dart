@@ -56,6 +56,11 @@ class NewInvoiceScreen extends StatelessWidget {
                       } else if (state is CustomerDetailsSaved) {
                         isCompleted2 = true;
                       }
+                      if (state is ItemLoaded || state is ItemAdded) {
+                        isCompleted3 = true;
+                      } else if (state is ItemCleared) {
+                        isCompleted3 = false;
+                      }
                     },
                     builder: (context, state) {
                       return Column(
@@ -100,7 +105,7 @@ class NewInvoiceScreen extends StatelessWidget {
                             iconPath: addToCart,
                             title: "Items",
                             subtitle: 'add items to your invoice',
-                            isCompleted: false,
+                            isCompleted: isCompleted3,
                             isScreenNull: false,
                             screen: const AddItemScreen(),
                           ),
