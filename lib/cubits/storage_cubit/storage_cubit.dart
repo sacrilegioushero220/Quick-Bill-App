@@ -140,6 +140,13 @@ class StorageCubit extends Cubit<StorageState> {
     emit(ItemAdded(item: List.from(itemList))); // Emit the updated list
   }
 
+  void removeItem(Item item) async {
+    itemList.remove(item);
+    // Save the updated list to SharedPreferences
+    await _saveItemListToPreferences();
+    emit(ItemAdded(item: List.from(itemList))); // Emit the updated list
+  }
+
   Future<void> _saveItemListToPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     // Convert the list of items to a list of JSON strings

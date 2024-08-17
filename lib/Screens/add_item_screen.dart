@@ -19,6 +19,10 @@ class _AddItemScreenState extends State<AddItemScreen> {
     super.initState();
   }
 
+  double _calculateGrandTotal(List<Item> items) {
+    return items.fold(0.0, (sum, item) => sum + (item.price * item.qty));
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Item> itemList = [];
@@ -38,7 +42,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
         "Add Items",
         context,
         isHome: false,
-        clearItemList: true,
+        // clearItemList: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -53,22 +57,46 @@ class _AddItemScreenState extends State<AddItemScreen> {
             },
             builder: (context, state) {
               if (state is ItemAdded) {
+                double grandTotal = _calculateGrandTotal(itemList);
                 return Column(
                   children: [
                     const SizedBox(
                       height: 50,
                     ),
                     _buildItemsTable(itemList),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const SizedBox(),
+                        Text(
+                            "Grand Total: Rs ${grandTotal.toStringAsFixed(2)}"),
+                      ],
+                    ),
                   ],
                 );
               } else if (state is ItemLoaded) {
                 itemList = state.item;
+                double grandTotal = _calculateGrandTotal(itemList);
                 return Column(
                   children: [
                     const SizedBox(
                       height: 50,
                     ),
                     _buildItemsTable(itemList),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const SizedBox(),
+                        Text(
+                            "Grand Total: Rs ${grandTotal.toStringAsFixed(2)}"),
+                      ],
+                    ),
                   ],
                 );
               }
@@ -117,7 +145,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
               _buildTableCell(itemData[1]),
               _buildTableCell(itemData[2]),
               _buildTableCell(itemData[3]),
-              _buildTableAction(),
+              _buildTableAction(item),
             ],
           );
         }),
@@ -143,10 +171,14 @@ class _AddItemScreenState extends State<AddItemScreen> {
     );
   }
 
-  Widget _buildTableAction() {
+  Widget _buildTableAction(Item item) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
+      child: IconButton(
+          onPressed: () {
+            BlocProvider.of<StorageCubit>(context).removeItem(item);
+          },
+          icon: const Icon(Icons.delete)),
     );
   }
 }
