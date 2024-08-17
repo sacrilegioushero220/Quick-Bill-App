@@ -144,7 +144,12 @@ class StorageCubit extends Cubit<StorageState> {
     itemList.remove(item);
     // Save the updated list to SharedPreferences
     await _saveItemListToPreferences();
-    emit(ItemAdded(item: List.from(itemList))); // Emit the updated list
+
+    if (List.from(itemList).isEmpty) {
+      emit(ItemListCleared());
+    } else {
+      emit(ItemRemoved(item: List.from(itemList)));
+    } // Emit the updated list
   }
 
   Future<void> _saveItemListToPreferences() async {

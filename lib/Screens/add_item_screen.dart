@@ -51,11 +51,47 @@ class _AddItemScreenState extends State<AddItemScreen> {
             listener: (context, state) {
               if (state is ItemAdded) {
                 itemList = state.item;
-
-                print("ItemList :$itemList");
+              }
+              if (state is ItemRemoved) {
+                itemList = state.item;
+                print("Item Remoevd list :$itemList");
               }
             },
             builder: (context, state) {
+              if (state is ItemCleared) {
+                return const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 700,
+                      child: Center(child: Text("No items are added")),
+                    )
+                  ],
+                );
+              }
+              if (state is ItemRemoved) {
+                double grandTotal = _calculateGrandTotal(itemList);
+                return Column(
+                  children: [
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    _buildItemsTable(itemList),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const SizedBox(),
+                        Text(
+                            "Grand Total: Rs ${grandTotal.toStringAsFixed(2)}"),
+                      ],
+                    ),
+                  ],
+                );
+              }
               if (state is ItemAdded) {
                 double grandTotal = _calculateGrandTotal(itemList);
                 return Column(

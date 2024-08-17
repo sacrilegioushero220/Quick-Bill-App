@@ -27,11 +27,19 @@ final class ItemAdded extends StorageState {
   ItemAdded({required this.item});
 }
 
+final class ItemRemoved extends StorageState {
+  final List<Item> item;
+
+  ItemRemoved({required this.item});
+}
+
 final class ItemLoaded extends StorageState {
   final List<Item> item;
 
   ItemLoaded({required this.item});
 }
+
+final class ItemListCleared extends StorageState {}
 
 final class ItemCleared extends StorageState {}
 

@@ -62,6 +62,9 @@ class NewInvoiceScreen extends StatelessWidget {
                       } else if (state is ItemCleared) {
                         isCompleted3 = false;
                       }
+                      if (state is ItemListCleared) {
+                        isCompleted3 = false;
+                      }
                     },
                     builder: (context, state) {
                       return Column(
