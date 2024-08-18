@@ -45,5 +45,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Your photo library is needed to select images for invoices.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera access is needed to capture photos for invoices.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone access is needed for recording videos.</string>
 </dict>
 </plist>

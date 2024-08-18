@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_bill/Cubits/invoice_cubit/invoice_cubit.dart';
@@ -99,7 +101,56 @@ class _BusinessDetailScreenState extends State<BusinessDetailScreen> {
                       isBigField: true,
                     ),
                     const SizedBox(height: 50),
-                    const AddLogoWidget(),
+                    BlocBuilder<StorageCubit, StorageState>(
+                      builder: (context, state) {
+                        if (state is ImagePicked) {
+                          return GestureDetector(
+                            onTap: () {
+                              context.read<StorageCubit>().pickAndSaveImage();
+                            },
+                            child: Container(
+                              width: 200,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: const Color.fromARGB(255, 27, 50, 140),
+                                  width: 2.0,
+                                ),
+                              ),
+                              child: Image.file(File(state.logoPath)),
+                            ),
+                          );
+                        }
+                        if (state is BusinessDetailsSaved) {
+                          final logoPath = state.details.logo;
+                          return GestureDetector(
+                            onTap: () {
+                              context.read<StorageCubit>().pickAndSaveImage();
+                            },
+                            child: Container(
+                              width: 200,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: const Color.fromARGB(255, 27, 50, 140),
+                                  width: 2.0,
+                                ),
+                              ),
+                              child: Image.file(File(logoPath)),
+                            ),
+                          );
+                        }
+                        return AddLogoWidget(
+                          onTap: () {
+                            context.read<StorageCubit>().pickAndSaveImage();
+                          },
+                        );
+                      },
+                    ),
                     const SizedBox(height: 50),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

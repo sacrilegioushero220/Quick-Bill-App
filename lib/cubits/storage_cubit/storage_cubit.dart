@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:quick_bill/controllers/business_controllers.dart';
 import 'package:quick_bill/controllers/customer_controllers.dart';
 import 'package:quick_bill/model/models.dart';
@@ -14,7 +15,7 @@ class StorageCubit extends Cubit<StorageState> {
   void updateBusinessDetails(
     BusinessControllers controller,
     BuildContext context,
-  ) {
+  ) async {
     BusinessDetails business;
     try {
       if (controller.businessNameController.text.trim().isEmpty ||
@@ -29,14 +30,17 @@ class StorageCubit extends Cubit<StorageState> {
           ),
         );
       } else {
+        final prefs = await SharedPreferences.getInstance();
+        final logo = prefs.getString('profilePic');
         business = BusinessDetails(
           name: controller.businessNameController.text,
           address: controller.businessAddressController.text,
           phone: controller.businessPhoneController.text,
           email: controller.businessEmailController.text,
           website: controller.businessWebsiteController.text,
-          logo: '', // Add logo handling logic
+          logo: logo ?? "Null", // Add logo handling logic
         );
+        print("Business is saved $business");
         saveBusinessDetails(business);
       }
     } catch (e) {
@@ -71,6 +75,16 @@ class StorageCubit extends Cubit<StorageState> {
       }
     } catch (e) {
       emit(StorageError(message: "Failed to load business details"));
+    }
+  }
+
+  Future<void> pickAndSaveImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('profilePic', pickedFile.path);
+      emit(ImagePicked(logoPath: pickedFile.path));
     }
   }
 

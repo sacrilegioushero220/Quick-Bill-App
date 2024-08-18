@@ -15,6 +15,12 @@ final class BusinessDetailsSaved extends StorageState {
   BusinessDetailsSaved({required this.details});
 }
 
+final class ImagePicked extends StorageState {
+  final String logoPath;
+
+  ImagePicked({required this.logoPath});
+}
+
 final class CustomerDetailsSaved extends StorageState {
   final Customer details;
 
