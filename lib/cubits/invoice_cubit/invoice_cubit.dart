@@ -80,21 +80,6 @@ class InvoiceCubit extends Cubit<InvoiceState> {
     }
   }
 
-  void updatePaymentInstructions(String paymentInstructions) {
-    final currentState = state;
-    if (currentState is InvoiceData) {
-      emit(InvoiceData(
-        invoiceId: currentState.invoiceId,
-        date: currentState.date,
-        businessDetails: currentState.businessDetails,
-        payerDetails: currentState.payerDetails,
-        items: currentState.items,
-        paymentInstructions: paymentInstructions,
-        signature: currentState.signature,
-      ));
-    }
-  }
-
   void updateSignature(ByteData signature) {
     final currentState = state;
     if (currentState is InvoiceData) {

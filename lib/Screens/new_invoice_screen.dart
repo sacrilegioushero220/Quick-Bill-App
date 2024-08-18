@@ -64,6 +64,10 @@ class NewInvoiceScreen extends StatelessWidget {
                       if (state is ItemListCleared) {
                         isCompleted3 = false;
                       }
+                      if (state is PaymentInstructionsLoaded ||
+                          state is PaymentInstructionsUpdated) {
+                        isCompleted4 = true;
+                      }
                     },
                     builder: (context, state) {
                       return Column(
@@ -119,7 +123,7 @@ class NewInvoiceScreen extends StatelessWidget {
                             iconPath: payment,
                             title: "Payment",
                             subtitle: 'add payment instructions',
-                            isCompleted: false,
+                            isCompleted: isCompleted4,
                             isDialog: true,
                           ),
                           const SizedBox(

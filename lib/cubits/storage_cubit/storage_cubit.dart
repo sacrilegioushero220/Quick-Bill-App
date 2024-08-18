@@ -185,6 +185,7 @@ class StorageCubit extends Cubit<StorageState> {
         .remove('business_details'); // Remove the list from SharedPreferences
     itemList.clear(); // Clear the local list
     await prefs.remove('customer_details');
+    await prefs.remove('payment_instructions');
     emit(StorageEmpty());
   }
 
@@ -193,5 +194,31 @@ class StorageCubit extends Cubit<StorageState> {
     await prefs.remove('itemList'); // Remove the list from SharedPreferences
     itemList.clear(); // Clear the local list
     emit(ItemCleared());
+  }
+
+  void updatePaymentInstructions(
+      String paymentInstructions, BuildContext context) async {
+    if (paymentInstructions.isEmpty) {
+      emit(InvalidPaymentInstructions(
+        isValid: false,
+      ));
+    } else {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString("payment_instructions", paymentInstructions);
+      emit(PaymentInstructionsUpdated());
+      Navigator.pop(context);
+    }
+  }
+
+  void loadPaymentInstructions() async {
+    final prefs = await SharedPreferences.getInstance();
+    final payment = prefs.getString("payment_instructions");
+    if (payment != null) {
+      emit(PaymentInstructionsLoaded(
+        paymentInstructions: payment,
+      ));
+    } else {
+      emit(NoPaymentInstructions());
+    }
   }
 }

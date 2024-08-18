@@ -43,6 +43,22 @@ final class ItemListCleared extends StorageState {}
 
 final class ItemCleared extends StorageState {}
 
+final class PaymentInstructionsUpdated extends StorageState {}
+
+final class InvalidPaymentInstructions extends StorageState {
+  final bool isValid;
+
+  InvalidPaymentInstructions({required this.isValid});
+}
+
+final class NoPaymentInstructions extends StorageState {}
+
+final class PaymentInstructionsLoaded extends StorageState {
+  final String paymentInstructions;
+
+  PaymentInstructionsLoaded({required this.paymentInstructions});
+}
+
 final class StorageLoaded extends StorageState {}
 
 final class StorageEmpty extends StorageState {}
