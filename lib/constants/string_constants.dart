@@ -12,3 +12,4 @@ String payment = "assets/payment.png";
 String signature = "assets/signature.png";
 String rightArrow = "assets/rightArrow.png";
 String leftArrow = "assets/leftArrow.png";
+String download = "assets/download.svg";

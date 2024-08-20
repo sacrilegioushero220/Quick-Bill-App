@@ -11,6 +11,8 @@ import 'package:quick_bill/cubits/invoice_cubit/invoice_cubit.dart';
 import 'package:quick_bill/cubits/storage_cubit/storage_cubit.dart';
 import 'package:quick_bill/widgets/custom_widgets.dart';
 
+import '../cubits/invoice_cubit/invoice_state.dart';
+
 class NewInvoiceScreen extends StatelessWidget {
   const NewInvoiceScreen({super.key});
 
@@ -67,6 +69,9 @@ class NewInvoiceScreen extends StatelessWidget {
                       if (state is PaymentInstructionsLoaded ||
                           state is PaymentInstructionsUpdated) {
                         isCompleted4 = true;
+                      }
+                      if (state is SignatureSaved) {
+                        isCompleted5 = true;
                       }
                     },
                     builder: (context, state) {
@@ -133,7 +138,7 @@ class NewInvoiceScreen extends StatelessWidget {
                             iconPath: signature,
                             title: "Signature",
                             subtitle: 'add your Signature',
-                            isCompleted: false,
+                            isCompleted: isCompleted5,
                             isScreenNull: false,
                             screen: const SignatureScreen(),
                           ),
@@ -143,13 +148,22 @@ class NewInvoiceScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const CustomFilledButton(title: "Preview"),
                               CustomFilledButton(
-                                title: "Save",
+                                title: "Preview",
+                                onPressed: () async {
+                                  final invoice = await context
+                                      .read<InvoiceCubit>()
+                                      .createInvoiceData();
+                                  context.read<InvoiceCubit>().previewInvoice(
+                                      context: context, invoice: invoice!);
+                                },
+                              ),
+                              CustomFilledButton(
+                                title: "save",
                                 onPressed: () async {
                                   context
-                                      .read<StorageCubit>()
-                                      .loadBusinessDetails();
+                                      .read<InvoiceCubit>()
+                                      .saveInvoiceDetails(context);
                                 },
                               )
                             ],

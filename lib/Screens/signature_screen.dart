@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_bill/Cubits/invoice_cubit/invoice_cubit.dart';
 import 'package:quick_bill/Screens/home_screen.dart';
+import 'package:quick_bill/cubits/storage_cubit/storage_cubit.dart';
 import 'package:quick_bill/widgets/custom_widgets.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 
@@ -60,7 +61,10 @@ class SignatureScreen extends StatelessWidget {
                           await _signaturePadKey.currentState!.toImage();
                       final pngBytes = await image.toByteData(
                           format: ui.ImageByteFormat.png);
-                      context.read<InvoiceCubit>().updateSignature(pngBytes!);
+                      context.read<StorageCubit>().updateSignature(
+                            pngBytes!,
+                            context,
+                          );
                     },
                   )
                 ],

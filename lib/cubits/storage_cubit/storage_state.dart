@@ -65,6 +65,15 @@ final class PaymentInstructionsLoaded extends StorageState {
   PaymentInstructionsLoaded({required this.paymentInstructions});
 }
 
+final class SignatureLoaded extends StorageState {
+  final ByteData signaturePath;
+  SignatureLoaded({required this.signaturePath});
+}
+
+final class NoSignatureLoaded extends StorageState {}
+
+final class SignatureSaved extends StorageState {}
+
 final class StorageLoaded extends StorageState {}
 
 final class StorageEmpty extends StorageState {}

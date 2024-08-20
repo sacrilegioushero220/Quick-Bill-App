@@ -53,7 +53,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
               }
               if (state is ItemRemoved) {
                 itemList = state.item;
-                print("Item Remoevd list :$itemList");
               }
             },
             builder: (context, state) {

@@ -12,7 +12,7 @@ class Item {
   List<String> toList() => [
         name,
         "$qty",
-        "₨ ${price.toStringAsFixed(1)}",
+        "Rs: ${price.toStringAsFixed(1)}",
         (price * qty).toStringAsFixed(1),
       ];
 

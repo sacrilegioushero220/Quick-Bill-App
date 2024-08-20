@@ -1,11 +1,14 @@
-part of 'invoice_cubit.dart';
+import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
+import 'package:quick_bill/model/models.dart';
 
 @immutable
-abstract class InvoiceState {}
+sealed class InvoiceState {}
 
-class InvoiceInitial extends InvoiceState {}
+final class InvoiceInitial extends InvoiceState {}
 
-class InvoiceData extends InvoiceState {
+final class InvoiceData extends InvoiceState {
   final String invoiceId;
   final String date;
   final BusinessDetails? businessDetails;
@@ -27,4 +30,18 @@ class InvoiceData extends InvoiceState {
   String toString() {
     return 'InvoiceData(invoiceId: $invoiceId, date: $date, businessDetails: $businessDetails, payerDetails: $payerDetails, items: $items, paymentInstructions: $paymentInstructions, signature: $signature,)';
   }
+}
+
+final class InvoiceLoaded extends InvoiceState {
+  final List<Invoice> invoiceList;
+
+  InvoiceLoaded({required this.invoiceList});
+}
+
+final class NoInvoiceGenerated extends InvoiceState {}
+
+final class InvoiceAdded extends InvoiceState {
+  final List<Invoice> invoiceList;
+
+  InvoiceAdded({required this.invoiceList});
 }

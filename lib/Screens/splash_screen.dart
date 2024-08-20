@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_bill/Screens/home_screen.dart';
 import 'package:quick_bill/constants/string_constants.dart';
+import 'package:quick_bill/cubits/invoice_cubit/invoice_cubit.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,7 +19,11 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
         // ignore: use_build_context_synchronously
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => InvoiceCubit(),
+                  child: const HomeScreen(),
+                )),
       );
     });
   }

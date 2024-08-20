@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,19 +42,28 @@ class StorageCubit extends Cubit<StorageState> {
           logo: logo ?? "Null", // Add logo handling logic
         );
         print("Business is saved $business");
-        saveBusinessDetails(business);
+        saveBusinessDetails(business, context);
       }
     } catch (e) {
       print(e);
     }
   }
 
-  Future<void> saveBusinessDetails(BusinessDetails details) async {
+  Future<void> saveBusinessDetails(
+    BusinessDetails details,
+    BuildContext context,
+  ) async {
     try {
       emit(StorageSaving());
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String businessJson = jsonEncode(details.toJson());
       await prefs.setString('business_details', businessJson);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Business details are saved'),
+          duration: Duration(seconds: 1),
+        ),
+      );
       emit(BusinessDetailsSaved(details: details));
     } catch (e) {
       emit(StorageError(message: "Failed to save business details"));
@@ -111,19 +121,26 @@ class StorageCubit extends Cubit<StorageState> {
             email: controller.customerEmailInputController.text,
             name: controller.customerNameInputController.text,
             phone: controller.customerPhoneInputController.text);
-        saveCustomerDetails(customer);
+        saveCustomerDetails(customer, context);
       }
     } catch (e) {
       print(e);
     }
   }
 
-  Future<void> saveCustomerDetails(Customer details) async {
+  Future<void> saveCustomerDetails(
+      Customer details, BuildContext context) async {
     try {
       emit(StorageSaving());
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String businessJson = jsonEncode(details.toJson());
       await prefs.setString('customer_details', businessJson);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Customer details are saved'),
+          duration: Duration(seconds: 1),
+        ),
+      );
       emit(CustomerDetailsSaved(details: details));
     } catch (e) {
       emit(StorageError(message: "Failed to save customer details"));
@@ -183,7 +200,7 @@ class StorageCubit extends Cubit<StorageState> {
       itemList = jsonStringList
           .map((jsonString) => Item.fromJson(json.decode(jsonString)))
           .toList();
-      print("ItemClearedList loaded:${List.from(itemList)}");
+
       if (List.from(itemList).isEmpty) {
         emit(ItemListCleared());
       } else {
@@ -200,6 +217,9 @@ class StorageCubit extends Cubit<StorageState> {
     itemList.clear(); // Clear the local list
     await prefs.remove('customer_details');
     await prefs.remove('payment_instructions');
+    await prefs.remove('signature_image');
+    await prefs.remove('invoiceID');
+    await prefs.remove('Date');
     emit(StorageEmpty());
   }
 
@@ -234,5 +254,39 @@ class StorageCubit extends Cubit<StorageState> {
     } else {
       emit(NoPaymentInstructions());
     }
+  }
+
+  void updateSignature(ByteData signature, BuildContext context) async {
+    // Convert ByteData to Uint8List
+    final Uint8List bytes = signature.buffer.asUint8List();
+
+    // Encode to Base64 string
+    final String base64String = base64Encode(bytes);
+
+    // Save to SharedPreferences
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('signature_image', base64String);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Signature is saved'),
+        duration: Duration(seconds: 1),
+      ),
+    );
+    emit(SignatureSaved());
+  }
+
+  Future<ByteData?> loadSignature() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? base64String = prefs.getString('signature_image');
+
+    if (base64String != null) {
+      final Uint8List bytes = base64Decode(base64String);
+      final signature = ByteData.sublistView(bytes);
+      emit(SignatureLoaded(
+        signaturePath: signature,
+      ));
+    }
+
+    return null; // Return null if no signature was found
   }
 }

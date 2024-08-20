@@ -1,7 +1,6 @@
 import 'package:flutter/services.dart';
 
 import 'models.dart';
-import 'package:flutter/services.dart';
 
 class Invoice {
   String id;
@@ -11,7 +10,7 @@ class Invoice {
   List<Item> items;
   String paymentInstructions;
   double total;
-  ByteData signature;
+  Uint8List signature;
 
   Invoice({
     required this.id,
@@ -34,7 +33,7 @@ class Invoice {
       'items': items.map((item) => item.toJson()).toList(),
       'paymentInstructions': paymentInstructions,
       'total': total,
-      'signature': signature.buffer.asUint8List(),
+      'signature': signature.toList(),
     };
   }
 
@@ -50,7 +49,15 @@ class Invoice {
           .toList(),
       paymentInstructions: json['paymentInstructions'],
       total: json['total'],
-      signature: ByteData.sublistView(Uint8List.fromList(json['signature'])),
+      signature: Uint8List.fromList(List<int>.from(json['signature'])),
     );
+  }
+
+  // Override toString method
+  @override
+  String toString() {
+    return 'Invoice{id: $id, date: $date, from: $from, to: $to, '
+        'items: ${items.length}, paymentInstructions: $paymentInstructions, '
+        'total: $total, signature: ${signature.length} bytes}';
   }
 }
